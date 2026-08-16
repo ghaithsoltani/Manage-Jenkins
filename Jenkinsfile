@@ -3,9 +3,16 @@ def gv
 pipeline {   
     agent any
     tools {
-        maven 'maven-3.9'  // Match the exact name in Jenkins config
+        maven 'Maven'
     }
     stages {
+        stage(""){
+            steps{
+                script{
+                    gv.incrementVersion()
+                }
+            }
+        }
         stage("init") {
             steps {
                 script {
@@ -17,9 +24,11 @@ pipeline {
             steps {
                 script {
                     gv.buildJar()
+
                 }
             }
         }
+
         stage("build image") {
             steps {
                 script {
@@ -27,6 +36,7 @@ pipeline {
                 }
             }
         }
+
         stage("deploy") {
             steps {
                 script {
@@ -35,4 +45,4 @@ pipeline {
             }
         }               
     }
-}
+} 
