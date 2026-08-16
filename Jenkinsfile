@@ -6,13 +6,6 @@ pipeline {
         maven 'Maven'
     }
     stages {
-        stage(""){
-            steps{
-                script{
-                    gv.incrementVersion()
-                }
-            }
-        }
         stage("init") {
             steps {
                 script {
@@ -20,15 +13,20 @@ pipeline {
                 }
             }
         }
+        stage("increment version") {
+            steps {
+                script {
+                    gv.incrementVersion()
+                }
+            }
+        }
         stage("build jar") {
             steps {
                 script {
                     gv.buildJar()
-
                 }
             }
         }
-
         stage("build image") {
             steps {
                 script {
@@ -36,7 +34,6 @@ pipeline {
                 }
             }
         }
-
         stage("deploy") {
             steps {
                 script {
@@ -45,4 +42,4 @@ pipeline {
             }
         }               
     }
-} 
+}
